@@ -1,0 +1,67 @@
+jan. 9, 2013
+
+system documentation
+- gives an overview of the system
+- single source of truth
+- critical part of software developement process
+- clear and concise
+
+user story
+- an informal statement of requirement
+- composed of 1 or 2 statements
+- focused on user needs and benefits and how the user interacts with the system
+- who, what, why of the system for end-user
+- clear and concise
+- * usually written in index cards
+
+templates:
+ * as a <role>, i want <goal/desire> so that <benefit>
+ * as a <role>, i want <goal/desire>
+ * in order to <receive benefit> as a <role>, i want <goal/desire>
+ * as <who><when><where>, i <want> because <why>
+
+Ex.
+ As an author, i want the spellchecker to ignore words with nos so that 
+only truly mispelled words are indicated.
+
+ A bank customer can change his PIN.
+
+
+Acceptance test
+- proves the validity of the system
+- black box test
+- one or more acceptance test
+
+1st deliverable (for project):
+- user story with acceptace test and result
+
+2nd deliverable:
+- SRS (Software Requirements Specifications)
+	- complete description of the behavior of the system to be developed
+	- UCD (use case diagram)
+		- actors and usecases
+			- usecase -> actors and associations
+			- '>' for primary actor
+			- systemboundarybox
+		- usecases and usecases
+			- relationship
+			- uses -> bounded by '<<>>'/includes
+			- extends -> general --- specific
+		- example
+			- user -> browser -> server
+				- user - browser (set target url)
+				- browser - server (receive page)
+				- browser - server (serve page)
+				- server - admin (start/stop)
+				
+				
+user Story1:
+	- A travel agent can deliver fullt paid tickets
+	* acceptance test: travel agent delivered the ticket; customer didn't fully paid.
+	result: Airline tickets will not be delivered.
+		
+user story2:
+	- A customer can book a tour.
+	*A.T.: a customer booked a tour.
+	result: airline ticket should be reserved to the customer and the cost should be automatically
+		included in the cutomer's total expenses. 

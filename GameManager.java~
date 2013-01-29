@@ -1,0 +1,135 @@
+import java.util.*;
+
+/**
+*	This class represents a GameManager which handles game sequence
+*	
+*	To be used for FEVGCastro's class discussions.
+*
+*	@author		Francisco Enrique Vicente G. Castro
+*	@version	1.0, 06 January 2013
+*/
+
+public class GameManager{
+
+	// Person teams
+	ArrayList<Team> teamList = new ArrayList<Team>();
+
+	// Random object(s)
+	Random generator = new Random();
+
+	// Scanner object(s)
+	Scanner inputString = new Scanner( System.in );
+
+	/**
+	*	Displays the game menu
+	*/
+	public void displayGameMenu(){		
+		System.out.println("\t\t=========================================");
+		System.out.println("\t\t|                                       |");
+		System.out.println("\t\t| [1] Create Team (Current Teams: "+this.getCurrentNumberOfTeams()+")  |");
+		System.out.println("\t\t| [2] Display Team Details              |");
+		System.out.println("\t\t| [3] Battle for One Round              |");
+		System.out.println("\t\t| [4] Exit Program                      |");
+		System.out.println("\t\t|                                       |");
+		System.out.println("\t\t=========================================");		
+	}
+
+	/**
+	*	Creates a Team object with Person members
+	*/
+	public void createTeam( int maxMembers, int maxAttack, int maxDefense, int maxHealth, String teamName ){
+		
+		Team newTeam = new Team(maxMembers,teamName);
+		Person p;
+		String memName;
+		int atk, def;
+		
+		for(int i=0; i<maxMembers; i++){
+			System.out.print("\t\t\t\nEnter name for member "+(i+1)+": ");
+			memName = inputString.nextLine();
+			atk = generator.nextInt(maxAttack);
+			def = generator.nextInt(maxDefense);
+			p = new Person(memName, atk, def, maxHealth);
+			newTeam.addTeamMember(p);
+		}
+
+		teamList.add(newTeam);
+
+	}
+
+	/**
+	*	Displays the details of each Person member of a Team object
+	*/
+	public void displayTeamDetails(){
+		Person[] team;
+			
+		System.out.println("\t\t\t-------------------------------");
+		for(int j=0; j<teamList.size(); j++){
+			System.out.println("\t\t\t[ "+teamList.get(j).getTeamName()+" ]");
+			team = teamList.get(j).getTeamMembers();
+			for(int i=0; i<teamList.get(j).getTeamMemberCount(); i++){
+				System.out.println("\n\t\t\tMember "+(i+1)+": "+team[i].getName());
+				System.out.println("\t\t\t\tAttack : "+team[i].getAttack());
+				System.out.println("\t\t\t\tDefense: "+team[i].getDefense());
+				System.out.println("\t\t\t\tHealth: "+team[i].getHealth());
+				System.out.println("\n");																	
+			}																														
+			System.out.println("\t\t\tPlayers dead: "+teamList.get(j).getNumberOfActiveMembers());
+			System.out.println("\n");
+		}		
+		System.out.println("\t\t\t-------------------------------");
+	}
+
+	/**
+	*	Performs the battle sequence between the two Teams
+	*/
+	public boolean initiateBattleSequence(){
+		
+		int atkr, dfdr, turn, multiplier, damage;
+		Person[] attacker;
+		Person[] defender;
+		// Determine which team attacks first
+		
+		turn = generator.nextInt(this.getCurrentNumberOfTeams())+1;
+		for(int i=0; i<2; i++){	
+		attacker = teamList.get(turn).getTeamMembers();
+		defender = teamList.get((turn+1)%2).getTeamMembers();
+		for(i=0; i<teamList.size(); i++){
+			if(teamList.get((turn+1)%2).getNumberOfActiveMembers() == 0)
+				return false;
+		}
+			do{
+				atkr = generator.nextInt(teamList.get(turn).getTeamMemberCount())+1;
+			}while(attacker[atkr].getHealth() <= 0);
+			do{
+				dfdr = generator.nextInt(teamList.get((turn+1)%2).getTeamMemberCount())+1;
+			}while(defender[dfdr].getHealth() <= 0);
+			multiplier = generator.nextInt(4)+2;
+			damage = attacker[atkr].computeDamage(defender[dfdr].getDefense(), multiplier);
+			defender[dfdr].receiveDamage(damage);
+			if(i==0){
+				System.out.println("\t\t\t---------------------------------------------");
+				System.out.println("\t\t\t           BATTLE SEQUENCE");
+			}
+			System.out.println("\t\t\t[ "+teamList.get((turn+1)%2).getTeamName()+" attacks ]\n");
+			System.out.println("\t\t\t"+attacker[atkr].getName()+" attacked.");
+			System.out.println("\t\t\tDamage multiplier generated: "+multiplier+".");
+			System.out.println("\t\t\t"+attacker[atkr].getName()+" hits "+defender[dfdr].getName()+" for "+damage+".");
+			System.out.println("");
+			if(teamList.get((turn+1)%2).getNumberOfActiveMembers() == 0)
+				return false;
+			turn = (turn+1)%2;
+		}
+		System.out.println("\n\n\t\t\t---------------------------------------------");
+		this.displayTeamDetails();		
+					
+	}
+
+	/**
+	*	Returns the number of Teams
+	*/
+	public int getCurrentNumberOfTeams(){
+			return teamList.size();
+		}
+}
+

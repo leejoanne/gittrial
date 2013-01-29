@@ -1,0 +1,97 @@
+import java.util.*;
+
+/**
+*	This class represents a Team composed of Person instances
+*	stored in an array.
+*	
+*	To be used for FEVGCastro's class discussions.
+*
+*	@author		Francisco Enrique Vicente G. Castro
+*	@version	1.0, 06 January 2013
+*/
+
+public class Team{
+	
+	String teamName;					// Team Name
+	Person[] personTeam;				// Array of Persons that make up the team
+	int teamActiveCount = 0;			// Number of Persons able to fight
+	int NUMBER_OF_MEMBERS;	// Limit of Persons for the Team
+
+	/**
+	*	Constructor
+	*/
+	public Team( int limit, String name ){
+		this.teamName=name;
+		this.NUMBER_OF_MEMBERS=limit;
+	}
+
+	/**
+	*	Returns true if a Person is successfully added to personTeam array,
+	*	returns false when personTeam array is full.
+	*/
+	public boolean addTeamMember( Person p ){
+		
+		if(teamActiveCount<NUMBER_OF_MEMBERS){
+			personTeam[teamActiveCount]=p;
+			System.out.println("\n"+personTeam[teamActiveCount].getName()+" is successfully added!\n");
+			return true;
+		}
+		
+		else{
+			System.out.println("\nTeam is already full!\n");
+			return false;
+		}
+		
+	}
+
+	/**
+	*	Updates count of active and inactive team mambers
+	*
+	*/
+	public void updateActiveMembers(){
+		int x=0;
+		
+		while(personTeam[x] != null){
+			if(personTeam[x].getHealth>0) teamActiveCount++;
+			x++;
+		}
+		
+		System.out.println("\nActive member of team is: "+teamActiveCount+"\n");
+	}
+
+	/**
+	*	Returns the array of Persons of the Team
+	*/
+	public Person[] getTeamMembers(){
+		return personTeam;
+	}
+
+	/**
+	*	Returns the current number of Persons in the Team
+	*/
+	public int getTeamMemberCount(){
+	
+		int x=0;
+	
+		while(personTeam[x]!=NULL){
+			x++;
+		}
+		
+		return x;
+	}
+
+	/**
+	*	Returns the name of the Team
+	*/
+	public String getTeamName(){
+		return teamName;
+	}
+
+	/**
+	*	Returns the number of members that are still able to battle
+	*/
+	public int getNumberOfActiveMembers(){
+		return teamActiveCount;	
+	}
+
+}

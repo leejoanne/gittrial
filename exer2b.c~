@@ -1,0 +1,12 @@
+//exer2b
+#include <stdio.h>
+#include <time.h>
+#define N 100
+
+int main(){
+	int i;
+	time_t t1, t2;
+	
+	for(i=0;i<N;i++)
+		printf("%i\n", i);
+}

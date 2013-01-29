@@ -1,0 +1,77 @@
+import java.util.*;
+
+/**
+*	This class is a test class that uses GameManager.java, Team.java, and Person.java
+*	
+*	To be used for FEVGCastro's class discussions.
+*
+*	@author		Francisco Enrique Vicente G. Castro
+*	@version	1.0, 06 January 2013
+*/
+
+public class Tester{
+	
+	public static void main( String[] arguments ) {
+	
+		Scanner input=new Scanner(System.in);
+		Scanner input1=new Scanner(System.in);
+		int limMem,limAt,limDe,hp, option;
+		String teamName;
+		
+		// GameManager object
+		GameManager gm = new GameManager();
+		
+		do{
+		System.out.print("\nEnter max number of team members (min: 1, max: 3): ");
+		// Enter max value for team members
+		limMem=input.nextInt();
+		if(limMem<1||limMem>3) System.out.println("\nInvalid value. Enter another.");
+		}while(limMem<1||limMem>3);
+		
+		System.out.println(">> Maximum number of members per team: "+limMem+"\n");
+		
+		do{
+		System.out.print("\nEnter limit for attack power (min: 2, max: 5):");
+		// Enter max value for attack
+		limAt=input.nextInt();
+		if(limAt<2||limAt>5) System.out.println("\nInvalid value. Enter another.");
+		}while(limAt<2||limAt>5);
+		
+		System.out.println(">> Attack power random from [2-"+limAt+"]\n");
+		
+		do{
+		System.out.print("Enter limit for defense power (min: 2, max: 5):");
+		// Enter max value for defense
+		limDe=input.nextInt();
+		if(limDe<2||limDe>5) System.out.println("\nInvalid value. Enter another.");
+		}while(limDe<2||limDe>5);
+		
+		System.out.println(">> Defense random from [2-"+limDe+"]\n");
+		
+		do{
+		System.out.print("Enter health points for all players (min: 20, max: 50):");
+		// Enter max value for defense
+		hp=input.nextInt();
+		if(hp<20||hp>50) System.out.println("\nInvalid value. Enter another.");
+		}while(hp<20||hp>50);
+		
+		gm.diplayGameMenu();
+		option = input.nextInt();
+		switch(option){
+			case 1:
+				System.out.print("Enter team name: ");
+				teamName = input1.nextLine();
+				gm.createTeam(limMem, limAt, limDe, hp, teamName);
+				break;
+		
+		}
+		
+
+		// Enter max value for health
+
+		/*Game sequence*/
+		
+	}
+
+
+}

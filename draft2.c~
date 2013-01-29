@@ -1,0 +1,15 @@
+# include <stdio.h>
+# include <time.h>
+
+int main(){
+	int n=360000, i;
+	time_t t1, t2;
+	
+	t1 = time(NULL);
+	for(i=0;i<n;i++)
+		printf("%d",i+1);
+	
+	t2 = time(NULL);
+	printf("time elapsed: %f",(float)(t2-t1));
+
+}
